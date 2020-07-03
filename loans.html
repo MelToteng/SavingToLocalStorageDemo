@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>FinMan Demo</title>
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="css/customStyles.css" rel="stylesheet" />
+    <link href="css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <script src="js/all.min.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body class="sb-nav-fixed" ng-app="app" ng-controller="ngLoansContoller as vm" ng-cloak>
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand" href="index.html">FinMan Demo</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
+                class="fas fa-bars"></i></button>
+        <!-- Navbar Login-->
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">System Menu</div>
+                        <a class="nav-link" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                            Customers
+                        </a>
+                        <a class="nav-link" href="loans.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                            Loans
+                        </a>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    Admin
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    <div class="row">
+                        <ol class="breadcrumb mb-4 col-xl-12 col-md-12">
+                            <li class="breadcrumb-item active">Loans Management</li>
+                        </ol>
+                    </div>
+                    <div class="row row-padding">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <b>Loan Information</b>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row row-padding">
+                                        <div class="col-md-4">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <tr>
+                                                        <th>{{vm.title}}</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <form name="inputForm">
+                                                                <div class="form-group">
+                                                                    <label for="customerInfo">Customer Number</label>
+                                                                    <select id="customerInfo" ng-model="vm.loan.Customer" ng-required="true" class="form-control min-selectInput" ng-options="item as item.Names for item in vm.customers track by item.Id"></select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Loan Amount</label>
+                                                                    <input id="id" ng-model="vm.loan.Amount" type="text" ng-required="true" class="form-control min-textInput" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Interest</label>
+                                                                    <input id="id" ng-model="vm.loan.Interest" type="text" ng-required="true" class="form-control min-textInput" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Loan Period(Months)</label>
+                                                                    <input id="id" ng-model="vm.loan.Period" type="text" ng-required="true" class="form-control min-textInput" />
+                                                                </div>
+                                                            </form>
+
+                                                            <div class="row row-padding">
+                                                                <div class="col-md-2"></div>
+                                                                <div class="col-md-10 pull-right">
+                                                                    <button class="btn btn-danger btn-size" ng-click="vm.Cancel()">Cancel</button>
+                                                                    <button class="btn btn-success btn-size" ng-disabled="!inputForm.$valid" ng-click="vm.Save()">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <table class="table table-borderless">
+                                                <tr>
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="4">
+                                                                <h4>All Loans</h4>
+                                                            </th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Customer</th>
+                                                            <th>Amount</th>
+                                                            <th>Interest</th>
+                                                            <th>Loan Period</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="item in vm.loans track by item.Id">
+                                                            <td>
+                                                                {{item.Customer}}
+                                                            </td>
+                                                            <td>
+                                                                {{item.Amount}}
+                                                            </td>
+                                                            <td>
+                                                                {{item.Interest}}
+                                                            </td>
+                                                            <td>
+                                                                {{item.Period}}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td></td>
+                                                            <th colspan="2" style="text-align: right;">
+                                                                Total Amount Owed:
+                                                            </th>
+                                                            <td>
+                                                                P{{vm.TotalAmountOwed}}
+                                                            </td>
+                                                        </tr>
+                                                    </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; FinMan Demo 2020</div>
+                        <div>
+                            <a href="#">Privacy Policy</a> &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    </div>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="scripts/custom/app.js"></script>
+    <script src="scripts/custom/ngLoansController.js"></script>
+</body>
+
+</html>
